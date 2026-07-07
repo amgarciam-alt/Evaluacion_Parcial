@@ -71,3 +71,12 @@ stock = {'8475HD': [387990,10],
         'FS1230HD': [249990,0], }
 
 
+def menumostrar():
+    print('***MENU***')
+    print('1.Stock Marca')
+    print('2.Busqueda por precio')
+    print('3.Actualizar precio')
+    print('4.Salir')
+
+
+
