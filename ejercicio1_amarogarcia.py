@@ -19,17 +19,17 @@ def stock_marca(marca,stock,productos):
 
 def busqueda_precio(precio_min,precio_max,productos,stock):
     resultados = []
-    for codigos, dato in stock.items():
-        precio = dato[0]
-        stocks = dato[1]
-    if precio_min <=precio<= precio_max and stocks !=0:
-        nombreproducto = productos[codigos][0]
-        resultados.append(f'{nombreproducto}--{codigos}')
+    for marca, datos_producto in stock.items():
+        precio = datos_producto[0]
+        stocks = datos_producto[1]
+        if precio_min <=precio<= precio_max and stocks !=0:
+            Modelo = productos[marca][0]
+            resultados.append(f'{Modelo}--{marca}')
 
-        if len(resultados) == 0:
-            print('No hay notebooks en ese rango de precio')
-        else:
-            resultadofinal = sorted(resultados)
+    if len(resultados) == 0:
+        print('No hay notebooks en ese rango de precio')
+    else:
+        resultadofinal = sorted(resultados)
         print(f'Los notebooks entre los precios son: {resultadofinal}')
 
 def validar_codigo(codigo,stock):
@@ -107,15 +107,15 @@ while True:
                 print('Debe ingresar valores entero!!!')
                 precio_min = None
                 precio_max = None
-        busqueda_precio(precio_min,precio_max,productos,stock)
+            busqueda_precio(precio_min,precio_max,productos,stock)
     
     elif op == 3:
         repetir = 's'
         while repetir == 's':
-            codigo = input('Ingrese el modelo del precio a actualizar').upper()
+            codigo = input('Ingrese el modelo del precio a actualizar: ').upper()
             precionuevo = False
             while not precionuevo:
-                precionuevotexto = input(f'Ingrese el nuevo precio de {codigo} ')
+                precionuevotexto = input(f'Ingrese el nuevo precio de {codigo}:  ')
                 if validacion_entero(precionuevotexto):
                     nuevoprecio = int(precionuevotexto)
                     precionuevo = True
@@ -123,12 +123,10 @@ while True:
                     print('el precio debe ser un numero entero positivo!!')
             
             if actualizar_precio(codigo,stock,nuevoprecio):
-                print('Precio actualizado!!!')
+                print(f'El Precio de {codigo} fue actualizado!!!')
             else:
                 print('El modelo no existe')
-            repetir = input('Desea cambiar el precio de otro notebook? s/n')
-            if not validar_repetir(repetir):
-                print('Respuesta invalida solo responda con (s) o (n)')
+            repetir = input('Desea cambiar el precio de otro notebook? s/n: ').lower()
 
     elif op == 4:
         print('Programa Finalizado')
