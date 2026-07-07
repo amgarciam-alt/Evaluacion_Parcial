@@ -28,11 +28,11 @@ def busqueda_precio(precio_min,precio_max,productos,stock):
             Modelo = productos[marca][0]
             resultados.append(f'{Modelo}--{marca}')
 
-        if len(resultados) == 0:
+    if len(resultados) == 0:
             print('No hay notebooks en ese rango de precio')
-        else:
-            resultadofinal = sorted(resultados)
-    print(f'Los notebooks entre los precios son: {resultadofinal}')
+    else:
+        resultadofinal = sorted(resultados)
+        print(f'Los notebooks entre los precios son: {resultadofinal}')
 
 def validar_codigo(codigo,stock):
     return codigo in stock
