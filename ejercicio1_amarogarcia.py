@@ -48,6 +48,13 @@ def validacion_entero(validacion):
     except ValueError:
         return False
 
+def validacion_nonegativo(validacioneg):
+    try:
+        valor = int(validacioneg)
+        return valor>=0
+    except ValueError:
+        return False
+
 def validar_texto(texto):
     if texto.strip() !='':
         return texto
@@ -70,7 +77,7 @@ stock = {'8475HD': [387990,10],
          '2175HD': [327990,4], 
          'JjfFHD': [424990,1],
         'fgdxFHD': [664990,21],
-        '123FHD': [290890,32], 
+        '123FHD': [290890,0], 
         '342FHD': [444990,7],
         'GF75HD': [749990,2], 
         'UWU131HD': [349990,1], 
@@ -83,6 +90,7 @@ def mostrarmenu():
     print('2.Busqueda por precio')
     print('3.Actualizar precio')
     print('4.Salir')
+    print('*************')
 
 
 while True:
@@ -92,7 +100,7 @@ while True:
     if op == 1:
         marca = input('Ingrese marca a consultar: ')
         if not validar_texto(marca):
-            print('La categoria no puede estar vacia')
+            print('La marca no puede estar vacia')
         else:
             stock_marca(marca,stock,productos)
     
@@ -102,9 +110,12 @@ while True:
         while precio_min is None or precio_max is None:
             try:
                 precio_min = int(input('Ingrese un precio minimo para la busqueda: '))
+                if not validacion_nonegativo(precio_min):
+                    print('Debe ingresar valores positivos mayor a 0')
                 precio_max = int(input('Ingrese un precio maximo para la busqueda: '))
+                
             except ValueError:
-                print('Debe ingresar valores entero!!!')
+                print('Debe ingresar valores enteros!!!')
                 precio_min = None
                 precio_max = None
             busqueda_precio(precio_min,precio_max,productos,stock)
@@ -115,14 +126,14 @@ while True:
             codigo = input('Ingrese el modelo del precio a actualizar: ').upper()
             precionuevo = False
             while not precionuevo:
-                precionuevotexto = input(f'Ingrese el nuevo precio de {codigo}:  ')
+                precionuevotexto = input(f'Ingrese el nuevo precio de {codigo}: ')
                 if validacion_entero(precionuevotexto):
                     nuevoprecio = int(precionuevotexto)
                     precionuevo = True
                 else:
                     print('el precio debe ser un numero entero positivo!!')
             
-            if actualizar_precio(codigo,stock,nuevoprecio):
+            if actualizar_precio(codigo,stock,precionuevo):
                 print(f'El Precio de {codigo} fue actualizado!!!')
             else:
                 print('El modelo no existe')
