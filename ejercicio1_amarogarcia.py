@@ -1,10 +1,57 @@
 def leer_opcion():
     while True:
         try:
-            opcion = int(input('Ingrese una opcion 1-6: '))
+            opcion = int(input('Ingrese una opcion 1-4: '))
             if 1 <= opcion <= 6:
                 return opcion
             else:
-                print('Opcion en un rango no valido')
+                print('Debe seleccionar una opción válida!!')
         except ValueError:
-            print('Solo caracteres no numericos')
+            print('Debe seleccionar una opción válida!!')
+
+def stock_marca(marca,stock,productos):
+    totalstock = 0
+    for codigo, datos in productos.items():
+        if datos[1].lower()==marca.lower():
+            totalstock +=stock[codigo][1]
+    print(f'Los stocks encontrados son: {totalstock}')
+
+
+def busqueda_precio(precio_min,precio_max,productos,stock):
+    resultados = []
+    for codigos, dato in stock.items():
+        precio = dato[0]
+        stocks = dato[1]
+    if precio_min <=precio<= precio_max and stocks !=0:
+        nombreproducto = productos[codigos][0]
+        resultados.append(f'{nombreproducto}--{codigos}')
+
+        if len(resultados) == 0:
+            print('No hay notebooks en ese rango de precio')
+        else:
+            resultadofinal = sorted(resultados)
+            print(f'Los notebooks entre los precios son: {resultadofinal}')
+
+def validar_codigo(codigo,stock):
+    return codigo in stock
+
+def actualizar_precio(codigo,stock,nuevoprecio):
+    if validar_codigo(codigo,stock):
+        stock[codigo][0] == nuevoprecio
+        return True
+    return False
+
+def validacion_entero(validacion):
+    try:
+        valor = int(validacion)
+        return valor>=0
+    except ValueError:
+        return False
+
+
+productos = {
+    '8475HD': ['HP', 15.6, '8GB', 'DD', '1T', 'Intel Core i5', 'Nvidia GTX1050'],
+    '2175HD': ['lenovo', 14, '4GB', 'SSD', '512GB', 'Intel Core i5', 'Nvidia GTX1050'],
+}
+
+
