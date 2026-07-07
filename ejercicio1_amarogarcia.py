@@ -2,7 +2,7 @@ def leer_opcion():
     while True:
         try:
             opcion = int(input('Ingrese una opcion 1-4: '))
-            if 1 <= opcion <= 6:
+            if 1 <= opcion <= 4:
                 return opcion
             else:
                 print('Debe seleccionar una opción válida!!')
@@ -87,6 +87,8 @@ stock = {'8475HD': [38790,10],
 
 
 def mostrarmenu():
+    print('Tienda Online Pybooks')
+    print('Gestion Notebook')
     print('***MENU***')
     print('1.Stock Marca')
     print('2.Busqueda por precio')
@@ -100,7 +102,7 @@ while True:
     op = leer_opcion()
 
     if op == 1:
-        marca = input('Ingrese marca a consultar: ')
+        marca = input('Ingrese marca a consultar(lenovo,Asus,HP,Dell): ')
         if not validar_texto(marca):
             print('La marca no puede estar vacia')
         else:
@@ -111,14 +113,14 @@ while True:
         precio_max = None
         while precio_min is None or precio_max is None:
             try:
-                precio_min = int(input('Ingrese un precio minimo para la busqueda: '))
+                precio_min = int(input('Ingrese un precio minimo para la busqueda: '))         
                 precio_max = int(input('Ingrese un precio maximo para la busqueda: '))
 
             except ValueError:
                 print('Debe ingresar valores enteros!!!')
                 precio_min = None
                 precio_max = None
-            busqueda_precio(precio_min,precio_max,productos,stock)
+        busqueda_precio(precio_min,precio_max,productos,stock)
     
     elif op == 3:
         repetir = 's'
