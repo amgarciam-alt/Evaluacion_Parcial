@@ -19,18 +19,20 @@ def stock_marca(marca,stock,productos):
 
 def busqueda_precio(precio_min,precio_max,productos,stock):
     resultados = []
+
     for marca, datos_producto in stock.items():
         precio = datos_producto[0]
         stocks = datos_producto[1]
-        if precio_min <=precio<= precio_max and stocks !=0:
+
+        if precio_min <= precio <= precio_max and stocks !=0:
             Modelo = productos[marca][0]
             resultados.append(f'{Modelo}--{marca}')
 
-    if len(resultados) == 0:
-        print('No hay notebooks en ese rango de precio')
-    else:
-        resultadofinal = sorted(resultados)
-        print(f'Los notebooks entre los precios son: {resultadofinal}')
+        if len(resultados) == 0:
+            print('No hay notebooks en ese rango de precio')
+        else:
+            resultadofinal = sorted(resultados)
+    print(f'Los notebooks entre los precios son: {resultadofinal}')
 
 def validar_codigo(codigo,stock):
     return codigo in stock
@@ -73,7 +75,7 @@ productos = {
     'UWU131HD': ['Dell', 15.6, '8GB', 'DD', '1T', 'AMD Ryzen 3', 'Nvidia GTX1050'], 
 }
 
-stock = {'8475HD': [387990,10], 
+stock = {'8475HD': [38790,10], 
          '2175HD': [327990,4], 
          'JjfFHD': [424990,1],
         'fgdxFHD': [664990,21],
@@ -110,10 +112,8 @@ while True:
         while precio_min is None or precio_max is None:
             try:
                 precio_min = int(input('Ingrese un precio minimo para la busqueda: '))
-                if not validacion_nonegativo(precio_min):
-                    print('Debe ingresar valores positivos mayor a 0')
                 precio_max = int(input('Ingrese un precio maximo para la busqueda: '))
-                
+
             except ValueError:
                 print('Debe ingresar valores enteros!!!')
                 precio_min = None
